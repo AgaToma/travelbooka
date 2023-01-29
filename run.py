@@ -22,9 +22,12 @@ import colorama
 from colorama import Fore
 colorama.init(autoreset=True)
 
+# import datetime module to work with holiday date
+import datetime
 
 
-def logo():
+
+def logo_display():
     """
     App logo and description
     """
@@ -35,4 +38,22 @@ def logo():
     print(Fore.RED + "Create".center(20) + Fore.MAGENTA + "your".center(20) +
     Fore.CYAN + "own".center(20) + Fore.YELLOW + "travel".center(20) + "\n")
 
-logo() 
+    print("Welcome to Travelbooka. Please follow the prompts to create your unique booking. \n")
+    print("To proceed after each input, please press Enter on your keyboard. \n")
+
+
+
+def date_input ():
+    """
+    Takes user desired travel date, stores it in a variable
+    to be used to determine Activity holidays type, if Activity holidays
+    are selected
+    """
+    date_entry = input("Enter a date in YYYY-MM-DD format: ")
+    year, month, day = map(int, date_entry.split('-'))
+    user_date = datetime.date(year, month, day)
+
+
+logo_display() 
+date_input()
+
