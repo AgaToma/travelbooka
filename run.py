@@ -50,8 +50,11 @@ def date_input ():
     are selected
     """
     date_entry = input("Enter a date in YYYY-MM-DD format: ")
-    year, month, day = map(int, date_entry.split('-'))
-    user_date = datetime.date(year, month, day)
+    user_month = date_entry.split('-')[1]
+    
+    return user_month
+
+
 
 
 logo_display() 
