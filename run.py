@@ -44,7 +44,7 @@ def logo_display():
     print(Fore.RED + "Create".center(20) + Fore.MAGENTA + "your".center(20) +
     Fore.CYAN + "own".center(20) + Fore.YELLOW + "travel".center(20) + "\n")
 
-    print("Welcome to Travelbooka. Please follow the prompts to create your unique booking. \n")
+    print("\033[1m" + "Welcome to Travelbooka. Please follow the prompts to create your unique booking. \n" + "\033[1m")
     print("To proceed after each input, please press Enter on your keyboard. \n")
 
 
@@ -75,9 +75,10 @@ def people_count():
     people_entry = input("Enter number of people on the booking: " + "\n")
     return people_entry
 
-def display_hol_types():
+def get_holiday_types():
     """
-    Displays holiday types from google sheet
+    Displays holiday types from google sheet, 
+    takes user selected holiday type and validates duration for type 2 & 3
     """
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
@@ -88,21 +89,23 @@ def display_hol_types():
     t_body = data[1:] 
     print(tabulate(t_body, headers=headers, tablefmt="fancy_grid") + "\n")
 
-def holiday_type_selection():
-    """
-    Takes user selected holiday type and validates duration for type 2 & 3
-    """
-    selected_type = input("Choose holiday type by entering code from table: " + "\n")
+    selected_type = int(input("Choose holiday type by entering code from table: " + "\n")) 
     
-    if selected_type != "1":
-        duration = input("Choose duration according to the table: ")
+    if selected_type != 1:
+        duration = input("Choose duration according to the table: " + "\n")
+        print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of {duration} days.\n")
         return [selected_type, duration]
     else:
-         return selected_type
+        print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of 3 days.\n")
+        return selected_type
+    
+    
+    
 
-    os.system('cls' if os.name == 'nt' else "printf '\033c'")
-    print(Fore.GREEN + f"Your selected holiday is {selected_type} lasting {duration} days")
-    print("Press Enter to proceed to next step")
+
+    
+
+   
 
 
 
@@ -112,8 +115,8 @@ def main():
     date_input()
     people_count()
     budget_input()
-    display_hol_types()
-    holiday_type_selection()
+    get_holiday_types()
 
 main()
+
 
