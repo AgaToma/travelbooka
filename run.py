@@ -22,8 +22,9 @@ import pyfiglet
 
 # import colorama for adding colour
 import colorama
-from colorama import Fore
-colorama.init(autoreset=True)
+from colorama import Fore, Back
+from colorama import init
+init(autoreset=True)
 
 # import datetime module to work with holiday date
 import datetime
@@ -64,7 +65,7 @@ def budget_input():
     Takes user target budget, stores it in a variable
     to be used during offer selection
     """
-    budget_entry = input("Enter your target budget in number format: " + "EUR ")
+    budget_entry = input("Enter your target budget in number format: " + "\n" + "EUR ")
     return budget_entry
 
 def people_count():
@@ -83,15 +84,36 @@ def display_hol_types():
     holiday_types = SHEET.worksheet("holiday_types")
     data = holiday_types.get_all_values()
 
-    col_names = data[0]
-    print(col_names)
+    headers = data[0]
+    t_body = data[1:] 
+    print(tabulate(t_body, headers=headers, tablefmt="fancy_grid") + "\n")
+
+def holiday_type_selection():
+    """
+    Takes user selected holiday type and validates duration for type 2 & 3
+    """
+    selected_type = input("Choose holiday type by entering code from table: " + "\n")
+    
+    if selected_type != "1":
+        duration = input("Choose duration according to the table: ")
+        return [selected_type, duration]
+    else:
+         return selected_type
+
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+    print(Fore.GREEN + f"Your selected holiday is {selected_type} lasting {duration} days")
+    print("Press Enter to proceed to next step")
 
 
 
 
-logo_display() 
-date_input()
-people_count()
-budget_input()
-display_hol_types()
+def main():
+    logo_display() 
+    date_input()
+    people_count()
+    budget_input()
+    display_hol_types()
+    holiday_type_selection()
+
+main()
 
