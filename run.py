@@ -89,6 +89,7 @@ def get_holiday_types():
     t_body = data[1:] 
     print(tabulate(t_body, headers=headers, tablefmt="fancy_grid") + "\n")
 
+    global selected_type
     selected_type = int(input("Choose holiday type by entering code from table: " + "\n")) 
     
     if selected_type == 2:
@@ -107,7 +108,30 @@ def get_holiday_types():
     else:
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of 3 days.\n")
         return selected_type
+    
+    print("Thanks for your selection. We are getting your basic package...")
 
+
+
+def basic_package():
+    flight_offer = SHEET.worksheet("flight_offer")
+    flights = flight_offer.get_all_values()
+
+    hotel_offer = SHEET.worksheet("hotel_offer")
+    hotels = hotel_offer.get_all_values()
+
+    print("Here is your basic package")
+    if selected_type == 1:
+        print(flights[1][4])
+    elif selected_type == 2:
+        print(flights[2][4])
+    else:
+        print(flights[3][4])
+
+
+
+  
+    
 
 
 
@@ -117,7 +141,10 @@ def main():
     people_count()
     budget_input()
     get_holiday_types()
+    basic_package()
+
 
 main()
+
 
 
