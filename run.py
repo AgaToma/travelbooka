@@ -47,7 +47,7 @@ def logo_display():
     print("\033[1m" + "Welcome to Travelbooka. Please follow the prompts to create your unique booking. \n" + "\033[1m")
     print("To proceed after each input, please press Enter on your keyboard. \n")
 
-
+user_month = 0
 
 def date_input():
     """
@@ -91,21 +91,22 @@ def get_holiday_types():
 
     selected_type = int(input("Choose holiday type by entering code from table: " + "\n")) 
     
-    if selected_type != 1:
+    if selected_type == 2:
         duration = input("Choose duration according to the table: " + "\n")
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of {duration} days.\n")
         return [selected_type, duration]
+    elif selected_type == 3:
+        duration = input("Choose duration according to the table: " + "\n")
+        summer = [4,5,6,7,8,9]
+        if user_month in summer:
+            print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} with duration of {duration} days.\n")
+            return [selected_type, duration]
+        else:
+            print(Fore.GREEN + f"You selected Winter {data[selected_type][1]} with duration of {duration} days.\n")
+            return [selected_type, duration]
     else:
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of 3 days.\n")
         return selected_type
-    
-    
-    
-
-
-    
-
-   
 
 
 
