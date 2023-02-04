@@ -65,6 +65,7 @@ def budget_input():
     Takes user target budget, stores it in a variable
     to be used during offer selection
     """
+    global budget_entry
     budget_entry = input("Enter your target budget in number format: " + "\n" + "EUR ")
     return budget_entry
 
@@ -90,6 +91,8 @@ def get_holiday_types():
     print(tabulate(t_body, headers=headers, tablefmt="fancy_grid") + "\n")
 
     global selected_type
+    global duration
+
     selected_type = int(input("Choose holiday type by entering code from table: " + "\n")) 
     
     if selected_type == 2:
@@ -123,15 +126,27 @@ def basic_package():
     print("Here is your basic package")
     if selected_type == 1:
         print(flights[1][4])
+        flight_price = flights[1][3]
     elif selected_type == 2:
         print(flights[2][4])
+        flight_price = flights[2][3]
     else:
         print(flights[3][4])
+        flight_price = flights[3][3]
 
 
+
+
+   
+
+    
 
   
-    
+
+
+
+
+
 
 
 
