@@ -122,6 +122,13 @@ def basic_package():
 
     hotel_offer = SHEET.worksheet("hotel_offer")
     hotels = hotel_offer.get_all_values()
+    col_names = hotels[0]
+    price_index = int(col_names.index("Price/day/person eur")) + 1
+    code_index = int(col_names.index("Hol Code")) + 1
+    price_list = hotel_offer.col_values(price_index)
+    code_list = hotel_offer.col_values(code_index)
+    print(price_list)
+    print(code_list)
 
     print("Here is your basic package")
     if selected_type == 1:
@@ -133,15 +140,6 @@ def basic_package():
     else:
         print(flights[3][4])
         flight_price = flights[3][3]
-
-
-
-
-   
-
-    
-
-  
 
 
 
