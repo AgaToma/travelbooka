@@ -66,14 +66,15 @@ def budget_input():
     to be used during offer selection
     """
     global budget_entry
-    budget_entry = input("Enter your target budget in number format: " + "\n" + "EUR ")
+    budget_entry = int(input("Enter your target budget in number format: " + "\n" + "EUR "))
     return budget_entry
 
 def people_count():
     """
     Takes user information on the amount of people going
     """
-    people_entry = input("Enter number of people on the booking: " + "\n")
+    global people_entry
+    people_entry = int(input("Enter number of people on the booking: " + "\n"))
     return people_entry
 
 def get_holiday_types():
@@ -96,11 +97,11 @@ def get_holiday_types():
     selected_type = int(input("Choose holiday type by entering code from table: " + "\n")) 
     
     if selected_type == 2:
-        duration = input("Choose duration according to the table: " + "\n")
+        duration = int(input("Choose duration according to the table: " + "\n"))
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of {duration} days.\n")
         return [selected_type, duration]
     elif selected_type == 3:
-        duration = input("Choose duration according to the table: " + "\n")
+        duration = int(input("Choose duration according to the table: " + "\n"))
         summer = [4,5,6,7,8,9]
         if user_month in summer:
             print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} with duration of {duration} days.\n")
@@ -109,8 +110,9 @@ def get_holiday_types():
             print(Fore.GREEN + f"You selected Winter {data[selected_type][1]} with duration of {duration} days.\n")
             return [selected_type, duration]
     else:
+        duration = 3
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of 3 days.\n")
-        return selected_type
+        return [selected_type, duration]
     
     print("Thanks for your selection. We are getting your basic package...")
 
@@ -126,9 +128,12 @@ def basic_package():
     price_index = int(col_names.index("Price/day/person eur")) + 1
     code_index = int(col_names.index("Hol Code")) + 1
     price_list = hotel_offer.col_values(price_index)
+    del price_list[0]
     code_list = hotel_offer.col_values(code_index)
-    print(price_list)
-    print(code_list)
+    del code_list[0]
+    int_code_list = [eval(code) for code in code_list]
+    int_price_list = [eval(price) for price in price_list]
+    
 
     print("Here is your basic package")
     if selected_type == 1:
@@ -140,6 +145,12 @@ def basic_package():
     else:
         print(flights[3][4])
         flight_price = flights[3][3]
+
+    for code, price in zip(int_code_list, int_price_list):
+        if code == selected_type and (price * duration * people_entry) < budget_entry:
+            print(price)
+        else:
+            print("Not working")
 
 
 
