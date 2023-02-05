@@ -138,23 +138,19 @@ def basic_package():
     print("Here is your basic package")
     if selected_type == 1:
         print(flights[1][4])
-        flight_price = flights[1][3]
+        flight_price = int(flights[1][3])
     elif selected_type == 2:
         print(flights[2][4])
-        flight_price = flights[2][3]
+        flight_price = int(flights[2][3])
     else:
         print(flights[3][4])
-        flight_price = flights[3][3]
+        flight_price = int(flights[3][3])
 
     for code, price in zip(int_code_list, int_price_list):
-        if code == selected_type and (price * duration * people_entry) < budget_entry:
+        if code == selected_type and (price * duration * people_entry) < (budget_entry - (flight_price * people_entry)):
             print(price)
         else:
             print("Not working")
-
-
-
-
 
 
 
