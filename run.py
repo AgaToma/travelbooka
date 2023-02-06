@@ -114,7 +114,6 @@ def get_holiday_types():
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of 3 days.\n")
         return [selected_type, duration]
     
-    print("Thanks for your selection. We are getting your basic package...")
 
 
 
