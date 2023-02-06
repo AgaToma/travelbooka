@@ -160,10 +160,10 @@ def basic_package():
         airline = flights[1][4]
         flight_price = int(flights[1][3])
     elif selected_type == 2:
-        airline = flights[2][4]
+        airline = flights[3][4]
         flight_price = int(flights[2][3])
     else:
-        airline = flights[3][4]
+        airline = flights[2][4]
         flight_price = int(flights[3][3])
 
     target_indices_unordered = []
