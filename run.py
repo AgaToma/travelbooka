@@ -119,16 +119,26 @@ def get_holiday_types():
 
 
 def basic_package():
+    """
+    Calculates available packages from data in flight_offer and hotel_offer sheets
+    and parameters entered previously by the user
+    comppares offered packages to user entered budget, displays packages within
+    user budget range in a table
+    """
     flight_offer = SHEET.worksheet("flight_offer")
     flights = flight_offer.get_all_values()
 
     hotel_offer = SHEET.worksheet("hotel_offer")
     hotels = hotel_offer.get_all_values()
+
+    #get indexes of targeted columns instead of entering a set number 
     col_names = hotels[0]
     price_index = int(col_names.index("Price/day/person eur")) + 1
     code_index = int(col_names.index("Hol Code")) + 1
     hotel_name_index = int(col_names.index("Hotel")) + 1
     location_index = int(col_names.index("Location")) + 1
+
+    #get values from targeted columns, remove or store required headers
     price_list = hotel_offer.col_values(price_index)
     price_list_header = price_list.pop(0)
     code_list = hotel_offer.col_values(code_index)
@@ -137,12 +147,16 @@ def basic_package():
     hotel_list_header = hotel_list.pop(0)
     location_list = hotel_offer.col_values(location_index)
     location_list_header = location_list.pop(0)
+    #create int lists for params needed in calculation
     int_code_list = [eval(code) for code in code_list]
     int_price_list = [eval(price) for price in price_list]
-
+    
+    #headers for basic package table
     package_headers = ["Airline", "Flight Price", hotel_list_header, location_list_header, price_list_header, "Total Package Price"]
 
-    print("Here is your basic package")
+    print("Here are the basic packages available for your entered budget")
+
+    #get flights depending on holiday type
     if selected_type == 1:
         airline = flights[1][4]
         flight_price = int(flights[1][3])
@@ -153,18 +167,33 @@ def basic_package():
         airline = flights[3][4]
         flight_price = int(flights[3][3])
 
+    target_indices_unordered = []
+    
+    #get common items from selected holiday codes and hotel prices
     for code, price in zip(int_code_list, int_price_list):
         if code == selected_type and (price * duration * people_entry) < (budget_entry - (flight_price * people_entry)):
-            print(price)
-            target_index = int_price_list.index(price)
+            price_index = [i for i,value in enumerate(int_price_list) if value == price]
+            code_index = [i for i,value in enumerate(int_code_list) if value == code]
+            target_index = list(set.intersection(*map(set, [price_index, code_index])))
+            target_indices_unordered.append(target_index)
     
-    hotel_name = hotel_list[target_index]
-    location = location_list[target_index]
-    hotel_price = int_price_list[target_index]
-    package_price = (flight_price + (hotel_price * duration)) * people_entry
+    target_indices_list = [item for sublist in target_indices_unordered for item in sublist]
+    target_index_list = []
+    [target_index_list.append(x) for x in target_indices_list if x not in target_index_list]
+    
 
-    table = [[airline,flight_price,hotel_name,location,hotel_price,package_price]]
+    nested_table = []
 
+    #loop through available indexes to create the basic package table
+    for index in target_index_list:
+        hotel_name = hotel_list[index]
+        location = location_list[index]
+        hotel_price = int_price_list[index]
+        package_price = (flight_price + (hotel_price * duration)) * people_entry
+        table_row = [[airline,flight_price,hotel_name,location,hotel_price,package_price]]
+        nested_table.append(table_row[-index:])
+        
+    table = [item for sublist in nested_table for item in sublist]
     print(tabulate(table, headers=package_headers, tablefmt="fancy_grid"))
 
 
