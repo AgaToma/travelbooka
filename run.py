@@ -127,14 +127,19 @@ def basic_package():
     col_names = hotels[0]
     price_index = int(col_names.index("Price/day/person eur")) + 1
     code_index = int(col_names.index("Hol Code")) + 1
+    hotel_name_index = int(col_names.index("Hotel")) + 1
+    location_index = int(col_names.index("Location")) + 1
     price_list = hotel_offer.col_values(price_index)
     del price_list[0]
     code_list = hotel_offer.col_values(code_index)
     del code_list[0]
+    hotel_list = hotel_offer.col_values(hotel_name_index)
+    del hotel_list[0]
+    location_list = hotel_offer.col_values(location_index)
+    del location_list[0]
     int_code_list = [eval(code) for code in code_list]
     int_price_list = [eval(price) for price in price_list]
     
-
     print("Here is your basic package")
     if selected_type == 1:
         print(flights[1][4])
@@ -149,8 +154,10 @@ def basic_package():
     for code, price in zip(int_code_list, int_price_list):
         if code == selected_type and (price * duration * people_entry) < (budget_entry - (flight_price * people_entry)):
             print(price)
-        else:
-            print("Not working")
+            target_index = int_price_list.index(price)
+    
+    print(hotel_list[target_index])
+    print(location_list[target_index])
 
 
 
