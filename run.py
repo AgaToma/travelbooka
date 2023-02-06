@@ -130,25 +130,27 @@ def basic_package():
     hotel_name_index = int(col_names.index("Hotel")) + 1
     location_index = int(col_names.index("Location")) + 1
     price_list = hotel_offer.col_values(price_index)
-    del price_list[0]
+    price_list_header = price_list.pop(0)
     code_list = hotel_offer.col_values(code_index)
     del code_list[0]
     hotel_list = hotel_offer.col_values(hotel_name_index)
-    del hotel_list[0]
+    hotel_list_header = hotel_list.pop(0)
     location_list = hotel_offer.col_values(location_index)
-    del location_list[0]
+    location_list_header = location_list.pop(0)
     int_code_list = [eval(code) for code in code_list]
     int_price_list = [eval(price) for price in price_list]
-    
+
+    package_headers = ["Airline", "Flight Price", hotel_list_header, location_list_header, price_list_header, "Total Package Price"]
+
     print("Here is your basic package")
     if selected_type == 1:
-        print(flights[1][4])
+        airline = flights[1][4]
         flight_price = int(flights[1][3])
     elif selected_type == 2:
-        print(flights[2][4])
+        airline = flights[2][4]
         flight_price = int(flights[2][3])
     else:
-        print(flights[3][4])
+        airline = flights[3][4]
         flight_price = int(flights[3][3])
 
     for code, price in zip(int_code_list, int_price_list):
@@ -156,8 +158,14 @@ def basic_package():
             print(price)
             target_index = int_price_list.index(price)
     
-    print(hotel_list[target_index])
-    print(location_list[target_index])
+    hotel_name = hotel_list[target_index]
+    location = location_list[target_index]
+    hotel_price = int_price_list[target_index]
+    package_price = (flight_price + (hotel_price * duration)) * people_entry
+
+    table = [[airline,flight_price,hotel_name,location,hotel_price,package_price]]
+
+    print(tabulate(table, headers=package_headers, tablefmt="fancy_grid"))
 
 
 
