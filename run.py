@@ -47,7 +47,7 @@ def logo_display():
     print("\033[1m" + "Welcome to Travelbooka. Please follow the prompts to create your unique booking. \n" + "\033[1m")
     print("To proceed after each input, please press Enter on your keyboard. \n")
 
-user_month = 0
+
 
 def date_input():
     """
@@ -56,9 +56,11 @@ def date_input():
     are selected
     """
     date_entry = input("Enter a date in YYYY-MM-DD format: " + "\n")
-    user_month = date_entry.split('-')[1]
+    month_entry = int(date_entry.split('-')[1])
+    print(month_entry)
     
-    return user_month
+    return month_entry
+
 
 def budget_input():
     """
@@ -77,10 +79,10 @@ def people_count():
     people_entry = int(input("Enter number of people on the booking: " + "\n"))
     return people_entry
 
-def get_holiday_types():
+def get_holiday_types(month_entry):
     """
-    Displays holiday types from google sheet, 
-    takes user selected holiday type and validates duration for type 2 & 3
+    Displays holiday types from google sheet, takes month_entry as an argument,
+    takes user selected holiday type input and validates duration for type 2 & 3
     """
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
@@ -103,7 +105,7 @@ def get_holiday_types():
     elif selected_type == 3:
         duration = int(input("Choose duration according to the table: " + "\n"))
         summer = [4,5,6,7,8,9]
-        if user_month in summer:
+        if month_entry in summer:
             print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} with duration of {duration} days.\n")
             return [selected_type, duration]
         else:
@@ -200,10 +202,10 @@ def basic_package():
 
 def main():
     logo_display() 
-    date_input()
+    user_month = date_input()
     people_count()
     budget_input()
-    get_holiday_types()
+    get_holiday_types(user_month)
     basic_package()
 
 
