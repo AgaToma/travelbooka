@@ -56,9 +56,7 @@ def date_input():
     are selected
     """
     date_entry = input("Enter a date in YYYY-MM-DD format: " + "\n")
-    month_entry = int(date_entry.split('-')[1])
-    print(month_entry)
-    
+    month_entry = int(date_entry.split('-')[1])    
     return month_entry
 
 
@@ -195,7 +193,7 @@ def basic_package():
         nested_table.append(table_row[-index:])
         
     table = [item for sublist in nested_table for item in sublist]
-    print(tabulate(table, headers=package_headers, tablefmt="fancy_grid"))
+    print(tabulate(table, headers=package_headers, tablefmt="fancy_grid", showindex="always"))
 
 
 
