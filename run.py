@@ -51,14 +51,23 @@ def logo_display():
 
 def date_input():
     """
-    Takes user desired travel date, stores it in a variable
+    Takes user desired travel date, stores it in a global variable
     to be used to determine Activity holidays type, if Activity holidays
     are selected
     """
     date_entry = input("Enter a date in YYYY-MM-DD format: " + "\n")
-    month_entry = int(date_entry.split('-')[1])    
-    return month_entry
+    month_entry = int(date_entry.split('-')[1])
 
+    global season
+    summer = [4,5,6,7,8,9]  
+    if month_entry in summer:
+        season = "summer"
+        return season
+    else:
+        season = "winter"
+        return season
+
+    
 
 def budget_input():
     """
@@ -77,7 +86,7 @@ def people_count():
     people_entry = int(input("Enter number of people on the booking: " + "\n"))
     return people_entry
 
-def get_holiday_types(month_entry):
+def get_holiday_types():
     """
     Displays holiday types from google sheet, takes month_entry as an argument,
     takes user selected holiday type input and validates duration for type 2 & 3
@@ -102,8 +111,7 @@ def get_holiday_types(month_entry):
         return [selected_type, duration]
     elif selected_type == 3:
         duration = int(input("Choose duration according to the table: " + "\n"))
-        summer = [4,5,6,7,8,9]
-        if month_entry in summer:
+        if season == "summer":
             print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} with duration of {duration} days.\n")
             return [selected_type, duration]
         else:
@@ -150,7 +158,9 @@ def basic_package():
     location_list_header = location_list.pop(0)
     season_list = hotel_offer.col_values(season_index)
     del season_list[0]
-   
+    summer_indices = [i for i,value in enumerate(season_list) if value == "summer"]
+    winter_indices = [i for i,value in enumerate(season_list) if value == "winter"]
+
     #create int lists for params needed in calculation
     int_code_list = [eval(code) for code in code_list]
     int_price_list = [eval(price) for price in price_list]
@@ -183,10 +193,20 @@ def basic_package():
     
     
     target_indices_list = [item for sublist in target_indices_unordered for item in sublist]
-    target_index_list = []
-    [target_index_list.append(x) for x in target_indices_list if x not in target_index_list]
-    
 
+    target_index_list = []
+
+    # verifying season from input date for the selected trip
+    if selected_type == 3:
+        if season == "summer":
+            new_list = list(set.intersection(*map(set, [target_indices_list, summer_indices])))
+            [target_index_list.append(x) for x in new_list if x not in target_index_list]
+        else:
+            new_list = list(set.intersection(*map(set, [target_indices_list, winter_indices])))
+            [target_index_list.append(x) for x in new_list if x not in target_index_list]
+    else:
+        [target_index_list.append(x) for x in target_indices_list if x not in target_index_list]
+    
     nested_table = []
 
     #loop through available indexes to create the basic package table
@@ -206,10 +226,10 @@ def basic_package():
 
 def main():
     logo_display() 
-    user_month = date_input()
+    date_input()
     people_count()
     budget_input()
-    get_holiday_types(user_month)
+    get_holiday_types()
     basic_package()
 
 
