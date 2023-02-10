@@ -136,6 +136,7 @@ def basic_package():
     code_index = int(col_names.index("Hol Code")) + 1
     hotel_name_index = int(col_names.index("Hotel")) + 1
     location_index = int(col_names.index("Location")) + 1
+    season_index = int(col_names.index("Season")) + 1
     
 
     #get values from targeted columns, remove or store required headers
@@ -147,9 +148,9 @@ def basic_package():
     hotel_list_header = hotel_list.pop(0)
     location_list = hotel_offer.col_values(location_index)
     location_list_header = location_list.pop(0)
-    season_list = hotel_offer.col_values(2)
+    season_list = hotel_offer.col_values(season_index)
     del season_list[0]
-    print(season_list)
+   
     #create int lists for params needed in calculation
     int_code_list = [eval(code) for code in code_list]
     int_price_list = [eval(price) for price in price_list]
