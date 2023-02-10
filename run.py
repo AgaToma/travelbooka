@@ -129,7 +129,7 @@ def basic_package():
     """
     Calculates available packages from data in flight_offer and hotel_offer sheets
     and parameters entered previously by the user
-    comppares offered packages to user entered budget, displays packages within
+    compares offered packages to user entered budget, displays packages within
     user budget range in a table
     """
     flight_offer = SHEET.worksheet("flight_offer")
@@ -219,8 +219,22 @@ def basic_package():
         nested_table.append(table_row[-index:])
         
     table = [item for sublist in nested_table for item in sublist]
-    print(tabulate(table, headers=package_headers, tablefmt="fancy_grid", showindex="always"))
+    print(tabulate(table, headers=package_headers, tablefmt="fancy_grid", showindex="always") + "\n")
+    
 
+    selected_package = int(input("Choose your package by entering the number in the first column: ") + "\n")  
+    print(Fore.GREEN + "\n" + f"You selected package {selected_package}" + "\n")
+    selection = table[selected_package]
+    selection_table = [selection]
+    print(tabulate(selection_table, headers=package_headers, tablefmt="fancy_grid") + "\n")
+
+    return selected_package
+
+def upgrade():
+    """
+    Offers option to upgrade flight and hotel
+    """
+    print("Would you like")
 
 
 
