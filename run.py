@@ -121,8 +121,6 @@ def get_holiday_types():
         duration = 3
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of 3 days.\n")
         return [selected_type, duration]
-    
-
 
 
 def basic_package():
@@ -132,6 +130,7 @@ def basic_package():
     compares offered packages to user entered budget, displays packages within
     user budget range in a table
     """
+
     flight_offer = SHEET.worksheet("flight_offer")
     flights = flight_offer.get_all_values()
 
@@ -223,6 +222,10 @@ def basic_package():
     
 
     selected_package = int(input("Choose your package by entering the number in the first column: ") + "\n")  
+    
+    #clear terminal to avoid clutter
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
     print(Fore.GREEN + "\n" + f"You selected package {selected_package}" + "\n")
     selection = table[selected_package]
     selection_table = [selection]
