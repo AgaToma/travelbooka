@@ -248,10 +248,12 @@ def free_extras():
     extra_names = free_extras.col_values(extra_name_index)
     del extra_names[0]
     random_extra = random.choice(extra_names)
-    print(random_extra)
 
+    print(Fore.GREEN + "As a way of saying thanks for booking with us")
+    print(Fore.YELLOW + "we added the below free extra to your package")
+    print(Fore.MAGENTA + f"{random_extra}")
 
-
+    return random_extra
 
 
 def main():
@@ -261,10 +263,11 @@ def main():
     budget_input()
     get_holiday_types()
     basic_package()
+    free_extras()
 
 
-#main()
-free_extras()
+main()
+
 
 
 
