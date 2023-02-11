@@ -32,6 +32,9 @@ import datetime
 # import tabulate to display data in tables
 from tabulate import tabulate
 
+# import random to generate random free extras
+import random
+
 
 def logo_display():
     """
@@ -233,11 +236,21 @@ def basic_package():
 
     return selected_package
 
-def upgrade():
+def free_extras():
     """
-    Offers option to upgrade flight and hotel
+    Selects random extras from the free extras lists to be
+    added to the booking
     """
-    print("Would you like")
+    free_extras = SHEET.worksheet("free_extras")
+    extras_data = free_extras.get_all_values()
+    col_names = extras_data[0]
+    extra_name_index = int(col_names.index("Type")) + 1
+    extra_names = free_extras.col_values(extra_name_index)
+    del extra_names[0]
+    random_extra = random.choice(extra_names)
+    print(random_extra)
+
+
 
 
 
@@ -250,7 +263,8 @@ def main():
     basic_package()
 
 
-main()
+#main()
+free_extras()
 
 
 
