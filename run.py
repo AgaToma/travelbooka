@@ -285,6 +285,9 @@ def free_extras():
 
 
 def main():
+    """
+    Run all program functions
+    """
     logo_display()
     date_input()
     people_count()
