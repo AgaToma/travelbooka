@@ -22,7 +22,6 @@ from tabulate import tabulate
 # import random to generate random free extras
 import random
 
-# gspread and google cred constants
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -35,7 +34,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("Travelbooka")
 
-# colorama autoreset
 init(autoreset=True)
 
 
@@ -48,10 +46,13 @@ def logo_display():
     print(logo)
 
     print(Fore.RED + "Create".center(20) + Fore.MAGENTA + "your".center(20) +
-          Fore.CYAN + "own".center(20) + Fore.YELLOW + "travel".center(20) + "\n")
+          Fore.CYAN + "own".center(20) + Fore.YELLOW + "travel".center(20)
+          + "\n")
 
-    print("\033[1m" + "Welcome to Travelbooka. Please follow the prompts to create your unique booking. \n" + "\033[1m")
-    print("To proceed after each input, please press Enter on your keyboard. \n")
+    print("\033[1m" + "Welcome to Travelbooka. Please follow the prompts to "
+          "create your unique booking. \n" + "\033[1m")
+    print("To proceed after each input, please press Enter on your keyboard."
+          "\n")
 
 
 def date_input():
@@ -79,7 +80,8 @@ def budget_input():
     to be used during offer selection
     """
     global budget_entry
-    budget_entry = int(input("Enter your target budget in number format: " + "\n" + "EUR "))
+    budget_entry = int(input("Enter your target budget in number format: "
+                       + "\n" + "EUR "))
     return budget_entry
 
 
@@ -95,7 +97,8 @@ def people_count():
 def get_holiday_types():
     """
     Displays holiday types from google sheet, takes month_entry as an argument,
-    takes user selected holiday type input and validates duration for type 2 & 3
+    takes user selected holiday type input and validates duration for type
+    2 & 3
     """
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
@@ -109,30 +112,37 @@ def get_holiday_types():
     global selected_type
     global duration
 
-    selected_type = int(input("Choose holiday type by entering code from table: " + "\n"))
+    selected_type = int(input("Choose holiday type by entering code from "
+                        "table: " + "\n"))
 
     if selected_type == 2:
-        duration = int(input("Choose duration according to the table: " + "\n"))
-        print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of {duration} days.\n")
+        duration = int(input("Choose duration according to the table: "
+                       + "\n"))
+        print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
+              "duration of {duration} days.\n")
         return [selected_type, duration]
     elif selected_type == 3:
-        duration = int(input("Choose duration according to the table: " + "\n"))
+        duration = int(input("Choose duration according to the table: "
+                       + "\n"))
         if season == "summer":
-            print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} with duration of {duration} days.\n")
+            print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} "
+                  f"with duration of {duration} days.\n")
             return [selected_type, duration]
         else:
-            print(Fore.GREEN + f"You selected Winter {data[selected_type][1]} with duration of {duration} days.\n")
+            print(Fore.GREEN + f"You selected Winter {data[selected_type][1]} "
+                  f"with duration of {duration} days.\n")
             return [selected_type, duration]
     else:
         duration = 3
-        print(Fore.GREEN + f"You selected {data[selected_type][1]} with duration of 3 days.\n")
+        print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
+              "duration of 3 days.\n")
         return [selected_type, duration]
 
 
 def basic_package():
     """
-    Calculates available packages from data in flight_offer and hotel_offer sheets
-    and parameters entered previously by the user
+    Calculates available packages from data in flight_offer and hotel_offer
+    sheets and parameters entered previously by the user
     compares offered packages to user entered budget, displays packages within
     user budget range in a table
     """
@@ -162,15 +172,19 @@ def basic_package():
     location_list_header = location_list.pop(0)
     season_list = hotel_offer.col_values(season_index)
     del season_list[0]
-    summer_indices = [i for i, value in enumerate(season_list) if value == "summer"]
-    winter_indices = [i for i, value in enumerate(season_list) if value == "winter"]
+    summer_indices = [i for i, value in enumerate(season_list) if
+                      value == "summer"]
+    winter_indices = [i for i, value in enumerate(season_list) if
+                      value == "winter"]
 
     # create int lists for params needed in calculation
     int_code_list = [eval(code) for code in code_list]
     int_price_list = [eval(price) for price in price_list]
 
     # headers for basic package table
-    package_headers = ["Airline", "Flight Price", hotel_list_header, location_list_header, price_list_header, "Total Package Price"]
+    package_headers = ["Airline", "Flight Price", hotel_list_header,
+                       location_list_header, price_list_header,
+                       "Total Package Price"]
 
     print("Here are the basic packages available for your entered budget")
 
@@ -190,25 +204,34 @@ def basic_package():
     # get common items from selected holiday codes and hotel prices
     for code, price in zip(int_code_list, int_price_list):
         if code == selected_type and (price * duration * people_entry) < (budget_entry - (flight_price * people_entry)):
-            price_index = [i for i, value in enumerate(int_price_list) if value == price]
-            code_index = [i for i, value in enumerate(int_code_list) if value == code]
-            target_index = list(set.intersection(*map(set, [price_index, code_index])))
+            price_index = [i for i, value in enumerate(int_price_list) if
+                           value == price]
+            code_index = [i for i, value in enumerate(int_code_list) if
+                          value == code]
+            target_index = list(set.intersection(*map(set, [price_index,
+                                code_index])))
             target_indices_unordered.append(target_index)
 
-    target_indices_list = [item for sublist in target_indices_unordered for item in sublist]
+    target_indices_list = [item for sublist in target_indices_unordered for
+                           item in sublist]
 
     target_index_list = []
 
     # verifying season from input date for the selected trip
     if selected_type == 3:
         if season == "summer":
-            new_list = list(set.intersection(*map(set, [target_indices_list, summer_indices])))
-            [target_index_list.append(x) for x in new_list if x not in target_index_list]
+            new_list = list(set.intersection(*map(set, [target_indices_list,
+                            summer_indices])))
+            [target_index_list.append(x) for x in new_list if x not in
+             target_index_list]
         else:
-            new_list = list(set.intersection(*map(set, [target_indices_list, winter_indices])))
-            [target_index_list.append(x) for x in new_list if x not in target_index_list]
+            new_list = list(set.intersection(*map(set, [target_indices_list,
+                            winter_indices])))
+            [target_index_list.append(x) for x in new_list if x not in
+             target_index_list]
     else:
-        [target_index_list.append(x) for x in target_indices_list if x not in target_index_list]
+        [target_index_list.append(x) for x in target_indices_list if x not in
+         target_index_list]
 
     nested_table = []
 
@@ -218,21 +241,26 @@ def basic_package():
         location = location_list[index]
         hotel_price = int_price_list[index]
         package_price = (flight_price + (hotel_price * duration)) * people_entry
-        table_row = [[airline, flight_price, hotel_name, location, hotel_price, package_price]]
+        table_row = [[airline, flight_price, hotel_name, location, hotel_price,
+                     package_price]]
         nested_table.append(table_row[-index:])
 
     table = [item for sublist in nested_table for item in sublist]
-    print(tabulate(table, headers=package_headers, tablefmt="fancy_grid", showindex="always") + "\n")
+    print(tabulate(table, headers=package_headers, tablefmt="fancy_grid",
+          showindex="always") + "\n")
 
-    selected_package = int(input("Choose your package by entering the number in the first column: ") + "\n")
+    selected_package = int(input("Choose your package by entering the number "
+                           "in the first column: ") + "\n")
 
     # clear terminal to avoid clutter
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
-    print(Fore.GREEN + "\n" + f"You selected package {selected_package}" + "\n")
+    print(Fore.GREEN + "\n" + f"You selected package {selected_package}"
+          + "\n")
     selection = table[selected_package]
     selection_table = [selection]
-    print(tabulate(selection_table, headers=package_headers, tablefmt="fancy_grid") + "\n")
+    print(tabulate(selection_table, headers=package_headers,
+          tablefmt="fancy_grid") + "\n")
 
     return selected_package
 
