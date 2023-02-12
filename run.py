@@ -1,3 +1,6 @@
+# import random to generate random free extras
+import random
+
 # google drive api and google sheets imports and constants
 import gspread
 from google.oauth2.service_account import Credentials
@@ -9,8 +12,7 @@ import os
 import pyfiglet
 
 # import colorama for adding colour
-import colorama
-from colorama import Fore, Back
+from colorama import Fore
 from colorama import init
 
 # import datetime module to work with holiday date
@@ -18,9 +20,6 @@ import datetime
 
 # import tabulate to display data in tables
 from tabulate import tabulate
-
-# import random to generate random free extras
-import random
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
