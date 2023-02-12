@@ -1,12 +1,13 @@
+"""Travelbooka imports"""
 # import random to generate random free extras
 import random
+
+# os import to clear terminal for user
+import os
 
 # google drive api and google sheets imports and constants
 import gspread
 from google.oauth2.service_account import Credentials
-
-# os import to clear terminal for user
-import os
 
 # pyfiglet import to generate logo in ASCII
 import pyfiglet
