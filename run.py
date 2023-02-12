@@ -5,6 +5,9 @@ import random
 # os import to clear terminal for user
 import os
 
+# import datetime module to work with holiday date
+from datetime import date, datetime, timedelta
+
 # google drive api and google sheets imports and constants
 import gspread
 from google.oauth2.service_account import Credentials
@@ -15,9 +18,6 @@ import pyfiglet
 # import colorama for adding colour
 from colorama import Fore
 from colorama import init
-
-# import datetime module to work with holiday date
-import datetime
 
 # import tabulate to display data in tables
 from tabulate import tabulate
@@ -55,13 +55,42 @@ def logo_display():
           "\n")
 
 
+def validate_date(entry):
+    """
+    Checks if user entered date meets program requirements
+    and returns error if not
+    """
+    current_year = datetime.now().year
+    current_day = datetime.now().day
+    current_month = datetime.now().month
+    date_condition = datetime.today().date() + timedelta(days=2)
+    entry_parsed = datetime.strptime(entry,'%Y-%m-%d').date()
+    try:
+        if entry_parsed <= date_condition:
+            raise ValueError(
+                "Enter a date that is at least 3 days from now.\n"
+                f"Booking cannot be made for entered date {entry}, \n"
+                "because it's either in the past or too soon"
+            )
+    except ValueError as error:
+        print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+        return False
+    return True
+
+
 def date_input():
     """
     Takes user desired travel date, stores it in a global variable
     to be used to determine Activity holidays type, if Activity holidays
     are selected
     """
-    date_entry = input("Enter a date in YYYY-MM-DD format: " + "\n")
+    while True:
+        date_entry = input("Enter a date in YYYY-MM-DD format: " + "\n")
+
+        if validate_date(date_entry):
+            break
+   
+
     month_entry = int(date_entry.split('-')[1])
 
     global season
