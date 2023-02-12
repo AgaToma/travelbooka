@@ -12,7 +12,6 @@ import pyfiglet
 import colorama
 from colorama import Fore, Back
 from colorama import init
-init(autoreset=True)
 
 # import datetime module to work with holiday date
 import datetime
@@ -23,6 +22,7 @@ from tabulate import tabulate
 # import random to generate random free extras
 import random
 
+# gspread and google cred constants
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -34,6 +34,9 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("Travelbooka")
+
+# colorama autoreset
+init(autoreset=True)
 
 
 def logo_display():
