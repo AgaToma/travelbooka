@@ -203,7 +203,7 @@ def basic_package():
 
     # get common items from selected holiday codes and hotel prices
     for code, price in zip(int_code_list, int_price_list):
-        if code == selected_type and (price * duration * people_entry) < (budget_entry - (flight_price * people_entry)):
+        if code == selected_type and (price * duration * people_entry) <= (budget_entry - (flight_price * people_entry)):
             price_index = [i for i, value in enumerate(int_price_list) if
                            value == price]
             code_index = [i for i, value in enumerate(int_code_list) if
