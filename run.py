@@ -113,7 +113,8 @@ def validate_budget(entry):
         if entry < 230:
             raise ValueError(
                 "The minimum budget needed is 230.\n"
-                f"It's not possible to create a package for this budget {entry}"
+                "It's not possible to create a package for this budget"
+                f"{entry}"
             )
     except ValueError as error:
         print(Fore.RED + f"Invalid data: {error}, please try again.\n")
@@ -132,7 +133,6 @@ def date_input():
 
         if validate_date(date_entry):
             break
-   
 
     month_entry = int(date_entry.split('-')[1])
 
@@ -154,12 +154,11 @@ def budget_input():
     while True:
         global budget_entry
         budget_entry = int(input("Enter your target budget in number format: "
-                       + "\n" + "EUR "))
-        
+                           + "\n" + "EUR "))
+
         if validate_budget(budget_entry):
             break
 
-    
     return budget_entry
 
 
@@ -169,7 +168,8 @@ def people_count():
     """
     while True:
         global people_entry
-        people_entry = int(input("Enter number of people on the booking: " + "\n"))
+        people_entry = int(input("Enter number of people on the booking: "
+                           + "\n"))
 
         if validate_people(people_entry):
             break
@@ -286,7 +286,9 @@ def basic_package():
 
     # get common items from selected holiday codes and hotel prices
     for code, price in zip(int_code_list, int_price_list):
-        if code == selected_type and (price * duration * people_entry) <= (budget_entry - (flight_price * people_entry)):
+        if code == selected_type and (price * duration * people_entry) <= (
+                                      budget_entry - (
+                                          flight_price * people_entry)):
             price_index = [i for i, value in enumerate(int_price_list) if
                            value == price]
             code_index = [i for i, value in enumerate(int_code_list) if
@@ -323,7 +325,8 @@ def basic_package():
         hotel_name = hotel_list[index]
         location = location_list[index]
         hotel_price = int_price_list[index]
-        package_price = (flight_price + (hotel_price * duration)) * people_entry
+        package_price = (flight_price + (hotel_price * duration
+                                         )) * people_entry
         table_row = [[airline, flight_price, hotel_name, location, hotel_price,
                      package_price]]
         nested_table.append(table_row[-index:])
