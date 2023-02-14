@@ -247,7 +247,7 @@ def get_holiday_types():
         return [selected_type, duration]
 
 
-def basic_package():
+def get_package():
     """
     Calculates available packages from data in flight_offer and hotel_offer
     sheets and parameters entered previously by the user
@@ -293,8 +293,6 @@ def basic_package():
     package_headers = ["Airline", "Flight Price", hotel_list_header,
                        location_list_header, price_list_header,
                        "Total Package Price"]
-
-    print("Here are the basic packages available for your entered budget")
 
     # get flights depending on holiday type
     if selected_type == 1:
@@ -355,8 +353,18 @@ def basic_package():
         table_row = [[airline, flight_price, hotel_name, location, hotel_price,
                      package_price]]
         nested_table.append(table_row[-index:])
-
+    
     table = [item for sublist in nested_table for item in sublist]
+
+    # exits program if no packages available in the budget range
+    if table == []:
+        print(Fore.RED + f"There are no available packages of this type "
+        f"({selected_type}) with duration of {duration} days witin the entered "
+        f"budget range of {budget_entry}")
+        exit()
+
+    print("Here are the packages available for your entered budget")
+
     print(tabulate(table, headers=package_headers, tablefmt="fancy_grid",
           showindex="always") + "\n")
 
@@ -405,7 +413,7 @@ def main():
     people_count()
     budget_input()
     get_holiday_types()
-    basic_package()
+    get_package()
     add_free_extras()
 
 
