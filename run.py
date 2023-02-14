@@ -376,7 +376,7 @@ def basic_package():
     return selected_package
 
 
-def free_extras():
+def add_free_extras():
     """
     Selects random extras from the free extras lists to be
     added to the booking
@@ -406,7 +406,7 @@ def main():
     budget_input()
     get_holiday_types()
     basic_package()
-    free_extras()
+    add_free_extras()
 
 
 if __name__ == "__main__":
