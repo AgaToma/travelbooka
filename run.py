@@ -60,17 +60,21 @@ def validate_date(entry):
     Checks if user entered date meets program requirements
     and returns error if not
     """
-    current_year = datetime.now().year
-    current_day = datetime.now().day
-    current_month = datetime.now().month
-    date_condition = datetime.today().date() + timedelta(days=2)
-    entry_parsed = datetime.strptime(entry,'%Y-%m-%d').date()
+    date_condition1 = datetime.today().date() + timedelta(days=3)
+    date_condition2 = datetime.today().date() + timedelta(days=365)
+    entry_parsed = datetime.strptime(entry, '%Y-%m-%d').date()
     try:
-        if entry_parsed <= date_condition:
+        if entry_parsed < date_condition1:
             raise ValueError(
                 "Enter a date that is at least 3 days from now.\n"
                 f"Booking cannot be made for entered date {entry}, \n"
                 "because it's either in the past or too soon"
+            )
+        elif entry_parsed > date_condition2:
+            raise ValueError(
+                "Enter a date that is within 1 year from now.\n"
+                f"Booking cannot be made for entered date {entry}, \n"
+                "because it is more than 1 year from now"
             )
     except ValueError as error:
         print(Fore.RED + f"Invalid data: {error}, please try again.\n")
