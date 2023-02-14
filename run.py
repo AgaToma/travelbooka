@@ -70,11 +70,50 @@ def validate_date(entry):
                 f"Booking cannot be made for entered date {entry}, \n"
                 "because it's either in the past or too soon"
             )
-        elif entry_parsed > date_condition2:
+        if entry_parsed > date_condition2:
             raise ValueError(
                 "Enter a date that is within 1 year from now.\n"
                 f"Booking cannot be made for entered date {entry}, \n"
                 "because it is more than 1 year from now"
+            )
+    except ValueError as error:
+        print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+        return False
+    return True
+
+
+def validate_people(entry):
+    """
+    Checks if user entered people count meets program requirements
+    and returns error if not
+    """
+    try:
+        if entry < 1:
+            raise ValueError(
+                "The minimum number of people is 1.\n"
+                f"It's not possible to create a package for this entry {entry}"
+            )
+        if entry > 11:
+            raise ValueError(
+                "The maximum number of people is 11.\n"
+                f"It's not possible to create a package for {entry} people."
+            )
+    except ValueError as error:
+        print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+        return False
+    return True
+
+
+def validate_budget(entry):
+    """
+    Checks if user entered budget figure meets program requirements
+    and returns error if not
+    """
+    try:
+        if entry < 230:
+            raise ValueError(
+                "The minimum budget needed is 230.\n"
+                f"It's not possible to create a package for this budget {entry}"
             )
     except ValueError as error:
         print(Fore.RED + f"Invalid data: {error}, please try again.\n")
@@ -112,9 +151,15 @@ def budget_input():
     Takes user target budget, stores it in a variable
     to be used during offer selection
     """
-    global budget_entry
-    budget_entry = int(input("Enter your target budget in number format: "
+    while True:
+        global budget_entry
+        budget_entry = int(input("Enter your target budget in number format: "
                        + "\n" + "EUR "))
+        
+        if validate_budget(budget_entry):
+            break
+
+    
     return budget_entry
 
 
@@ -122,8 +167,13 @@ def people_count():
     """
     Takes user information on the amount of people going
     """
-    global people_entry
-    people_entry = int(input("Enter number of people on the booking: " + "\n"))
+    while True:
+        global people_entry
+        people_entry = int(input("Enter number of people on the booking: " + "\n"))
+
+        if validate_people(people_entry):
+            break
+
     return people_entry
 
 
@@ -152,7 +202,7 @@ def get_holiday_types():
         duration = int(input("Choose duration according to the table: "
                        + "\n"))
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
-              "duration of {duration} days.\n")
+              f"duration of {duration} days.\n")
         return [selected_type, duration]
     elif selected_type == 3:
         duration = int(input("Choose duration according to the table: "
@@ -331,4 +381,5 @@ def main():
     free_extras()
 
 
-main()
+if __name__ == "__main__":
+    main()
