@@ -122,6 +122,22 @@ def validate_budget(entry):
     return True
 
 
+def validate_selection(value, options):
+    """
+    Checks if user selected options is within the available scope
+    """
+    try:
+        if value not in options:
+            raise ValueError(
+                f"Selected value of {value} is not available. \n"
+                f"Choose available value from displayed options"
+            )
+    except ValueError as error:
+        print(Fore.RED + f"Invalid data: {error}.\n")
+        return False
+    return True
+
+
 def date_input():
     """
     Takes user desired travel date, stores it in a global variable
@@ -195,18 +211,27 @@ def get_holiday_types():
     global selected_type
     global duration
 
-    selected_type = int(input("Choose holiday type by entering code from "
-                        "table: " + "\n"))
+    while True:
+        selected_type = int(input("Choose holiday type by entering code from "
+                                  "table: " + "\n"))
+        if validate_selection(selected_type, [1,2,3]):
+            break
 
     if selected_type == 2:
-        duration = int(input("Choose duration according to the table: "
-                       + "\n"))
+        while True:
+            duration = int(input("Choose duration according to the table: "
+                                + "\n"))
+            if validate_selection(duration, [3,5,7]):
+                break
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
               f"duration of {duration} days.\n")
         return [selected_type, duration]
     elif selected_type == 3:
-        duration = int(input("Choose duration according to the table: "
-                       + "\n"))
+        while True:
+            duration = int(input("Choose duration according to the table: "
+                                + "\n"))
+            if validate_selection(duration, [3,5,7]):
+                break
         if season == "summer":
             print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} "
                   f"with duration of {duration} days.\n")
