@@ -406,14 +406,14 @@ def add_free_extras():
 
 class Booking:
     """
-    Creates and instance of booking and adds to the bookings sheet
+    Creates and instance of booking and adds to the bookings sheet, creates a unique
+    booking id by incrementing list of Booking refs from bookings tab in Google sheet
     """
-    id = 0
+    bookings_sheet = SHEET.worksheet("bookings")
+    last_id = len(bookings_sheet.col_values(1))
 
     def __init__(self, trip_type, t_duration, location, hotel, airline, p_price, free_extras):
-        # class properties
-        Booking.id += 1
-        self.id = Booking.id
+        self.id = self.last_id
         self.trip_type = trip_type
         self.t_duration = t_duration
         self.location = location
@@ -433,11 +433,8 @@ class Booking:
                                        self.location, self.hotel, self.airline, self.p_price,
                                        self.free_extras)
         
-        #row = [__str__(self)]
-        # print(row)
         bookings_sheet.append_row(__str__(self).split(","))
-    
-    
+
 
 def main():
     """
