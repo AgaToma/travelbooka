@@ -408,28 +408,30 @@ class Booking:
     """
     Creates and instance of booking and adds to the bookings sheet
     """
-    def __init__(self, reference, trip_type, t_duration, package, free_extras):
+    id = 0
+
+    def __init__(self, trip_type, t_duration, package, free_extras):
         # class properties
-        self.reference = reference
+        Booking.id += 1
+        self.id = Booking.id
         self.trip_type = trip_type
         self.package = package
         self.t_duration = t_duration
         self.free_extras = free_extras
     
-    # class behaviour
-    def booking_number(self):
-        """
-        Generates a number for each new booking
-        """
-        self.reference += 1
-        return self.reference
+    def __str__(self):
+        return '%s, %s, %s, %s, %s' % (self.id, self.trip_type, self.t_duration, 
+                                       self.package, self.free_extras)
+    
+    # class method
     
     def update_worksheet(self):
         """
         Adds the new booking to bookings tab
         """
         bookings_sheet = SHEET.worksheet("bookings")
-        bookings_sheet.append_row(booking_number(), self)
+        bookings_sheet.append_row(string)
+    
 
 
 def main():
@@ -441,12 +443,12 @@ def main():
     people_count()
     budget_input()
     type_duration = get_holiday_types()
-    get_package()
-    add_free_extras()
+    selected_package = get_package()
+    free_extras = add_free_extras()
     booking = Booking(type_duration[0], type_duration[1], 
-                      get_package(), free_extras())
-    booking.booking_number()
-    booking.update_worksheet()
+                      selected_package, free_extras)
+    print(booking)
+    #booking.update_worksheet()
 
 
 if __name__ == "__main__":
