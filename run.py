@@ -404,6 +404,34 @@ def add_free_extras():
     return random_extra
 
 
+class Booking:
+    """
+    Creates and instance of booking and adds to the bookings sheet
+    """
+    def __init__(self, reference, trip_type, t_duration, package, free_extras):
+        # class properties
+        self.reference = reference
+        self.trip_type = trip_type
+        self.package = package
+        self.t_duration = t_duration
+        self.free_extras = free_extras
+    
+    # class behaviour
+    def booking_number(self):
+        """
+        Generates a number for each new booking
+        """
+        self.reference += 1
+        return self.reference
+    
+    def update_worksheet(self):
+        """
+        Adds the new booking to bookings tab
+        """
+        bookings_sheet = SHEET.worksheet("bookings")
+        bookings_sheet.append_row(booking_number(), self)
+
+
 def main():
     """
     Run all program functions
@@ -412,9 +440,13 @@ def main():
     date_input()
     people_count()
     budget_input()
-    get_holiday_types()
+    type_duration = get_holiday_types()
     get_package()
     add_free_extras()
+    booking = Booking(type_duration[0], type_duration[1], 
+                      get_package(), free_extras())
+    booking.booking_number()
+    booking.update_worksheet()
 
 
 if __name__ == "__main__":
