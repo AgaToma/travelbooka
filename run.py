@@ -434,6 +434,15 @@ class Booking:
                                        self.free_extras)
         
         bookings_sheet.append_row(__str__(self).split(","))
+        
+    def confirm_booking(self):
+        """
+        Returns booking id to user and informs to contact if they want to purchase
+        """
+        print("\n\n" + "\033[1m" + "YOUR UNIQUE BOOKING REFERENCE IS " + "\033[1m")
+        booking_ref = pyfiglet.figlet_format(str(self.id), font="bubble")
+        print(Fore.GREEN + f"{booking_ref}")
+        print(Fore.MAGENTA + "Give us a call, if you'd like to purchase your booking")
 
 
 def main():
@@ -451,6 +460,7 @@ def main():
                       selected_package[1], selected_package[2], selected_package[3],
                     selected_package[4], free_extras)
     booking.update_worksheet()
+    booking.confirm_booking()
 
 
 if __name__ == "__main__":
