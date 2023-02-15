@@ -225,7 +225,7 @@ def get_holiday_types():
                 break
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
               f"duration of {duration} days.\n")
-        return [selected_type, duration]
+        return [data[selected_type][1], duration]
     elif selected_type == 3:
         while True:
             duration = int(input("Choose duration according to the table: "
@@ -235,16 +235,16 @@ def get_holiday_types():
         if season == "summer":
             print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} "
                   f"with duration of {duration} days.\n")
-            return [selected_type, duration]
+            return [data[selected_type][1], duration]
         else:
             print(Fore.GREEN + f"You selected Winter {data[selected_type][1]} "
                   f"with duration of {duration} days.\n")
-            return [selected_type, duration]
+            return [data[selected_type][1], duration]
     else:
         duration = 3
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
               "duration of 3 days.\n")
-        return [selected_type, duration]
+        return [data[selected_type][1], duration]
 
 
 def get_package():
@@ -381,7 +381,7 @@ def get_package():
     print(tabulate(selection_table, headers=package_headers,
           tablefmt="fancy_grid") + "\n")
 
-    return selected_package
+    return [selected_package, selection[3], selection[2], selection[0], selection[5]]
 
 
 def add_free_extras():
@@ -410,18 +410,22 @@ class Booking:
     """
     id = 0
 
-    def __init__(self, trip_type, t_duration, package, free_extras):
+    def __init__(self, trip_type, t_duration, location, hotel, airline, p_price, free_extras):
         # class properties
         Booking.id += 1
         self.id = Booking.id
         self.trip_type = trip_type
-        self.package = package
         self.t_duration = t_duration
+        self.location = location
+        self.hotel = hotel
+        self.airline = airline
+        self.p_price = p_price
         self.free_extras = free_extras
     
     def __str__(self):
-        return '%s, %s, %s, %s, %s' % (self.id, self.trip_type, self.t_duration, 
-                                       self.package, self.free_extras)
+        return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.trip_type, self.t_duration, 
+                                       self.location, self.hotel, self.airline, self.p_price,
+                                       self.free_extras)
     
     # class method
     
@@ -430,9 +434,8 @@ class Booking:
         Adds the new booking to bookings tab
         """
         bookings_sheet = SHEET.worksheet("bookings")
-        bookings_sheet.append_row(string)
+        bookings_sheet.append_row(self)
     
-
 
 def main():
     """
@@ -446,9 +449,11 @@ def main():
     selected_package = get_package()
     free_extras = add_free_extras()
     booking = Booking(type_duration[0], type_duration[1], 
-                      selected_package, free_extras)
+                      selected_package[1], selected_package[2], selected_package[3],
+                    selected_package[4], free_extras)
     print(booking)
-    #booking.update_worksheet()
+    print(selected_package)
+    booking.update_worksheet()
 
 
 if __name__ == "__main__":
