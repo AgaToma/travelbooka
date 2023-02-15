@@ -432,8 +432,10 @@ class Booking:
             return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.trip_type, self.t_duration, 
                                        self.location, self.hotel, self.airline, self.p_price,
                                        self.free_extras)
-       
-        bookings_sheet.append_row([__str__(self)])
+        
+        #row = [__str__(self)]
+        # print(row)
+        bookings_sheet.append_row(__str__(self).split(","))
     
     
 
