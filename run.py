@@ -422,19 +422,19 @@ class Booking:
         self.p_price = p_price
         self.free_extras = free_extras
     
-    def __str__(self):
-        return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.trip_type, self.t_duration, 
-                                       self.location, self.hotel, self.airline, self.p_price,
-                                       self.free_extras)
-    
-    # class method
-    
     def update_worksheet(self):
         """
         Adds the new booking to bookings tab
         """
         bookings_sheet = SHEET.worksheet("bookings")
-        bookings_sheet.append_row(self)
+
+        def __str__(self):
+            return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.trip_type, self.t_duration, 
+                                       self.location, self.hotel, self.airline, self.p_price,
+                                       self.free_extras)
+       
+        bookings_sheet.append_row([__str__(self)])
+    
     
 
 def main():
@@ -451,8 +451,6 @@ def main():
     booking = Booking(type_duration[0], type_duration[1], 
                       selected_package[1], selected_package[2], selected_package[3],
                     selected_package[4], free_extras)
-    print(booking)
-    print(selected_package)
     booking.update_worksheet()
 
 
