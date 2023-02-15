@@ -214,14 +214,14 @@ def get_holiday_types():
     while True:
         selected_type = int(input("Choose holiday type by entering code from "
                                   "table: " + "\n"))
-        if validate_selection(selected_type, [1,2,3]):
+        if validate_selection(selected_type, [1, 2, 3]):
             break
 
     if selected_type == 2:
         while True:
             duration = int(input("Choose duration according to the table: "
-                                + "\n"))
-            if validate_selection(duration, [3,5,7]):
+                                 + "\n"))
+            if validate_selection(duration, [3, 5, 7]):
                 break
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
               f"duration of {duration} days.\n")
@@ -229,8 +229,8 @@ def get_holiday_types():
     elif selected_type == 3:
         while True:
             duration = int(input("Choose duration according to the table: "
-                                + "\n"))
-            if validate_selection(duration, [3,5,7]):
+                                 + "\n"))
+            if validate_selection(duration, [3, 5, 7]):
                 break
         if season == "summer":
             print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} "
@@ -353,14 +353,14 @@ def get_package():
         table_row = [[airline, flight_price, hotel_name, location, hotel_price,
                      package_price]]
         nested_table.append(table_row[-index:])
-    
+
     table = [item for sublist in nested_table for item in sublist]
 
     # exits program if no packages available in the budget range
     if table == []:
         print(Fore.RED + f"There are no available packages of this type "
-        f"({selected_type}) with duration of {duration} days witin the entered "
-        f"budget range of {budget_entry}")
+              f"({selected_type}) with duration of {duration} days witin the "
+              f"entered budget range of {budget_entry}")
         exit()
 
     print("Here are the packages available for your entered budget")
@@ -381,7 +381,8 @@ def get_package():
     print(tabulate(selection_table, headers=package_headers,
           tablefmt="fancy_grid") + "\n")
 
-    return [selected_package, selection[3], selection[2], selection[0], selection[5]]
+    return [selected_package, selection[3], selection[2], selection[0],
+            selection[5]]
 
 
 def add_free_extras():
@@ -406,13 +407,15 @@ def add_free_extras():
 
 class Booking:
     """
-    Creates and instance of booking and adds to the bookings sheet, creates a unique
-    booking id by incrementing list of Booking refs from bookings tab in Google sheet
+    Creates and instance of booking and adds to the bookings sheet, creates
+    a unique booking id by incrementing list of Booking refs from bookings tab
+    in Google sheet
     """
     bookings_sheet = SHEET.worksheet("bookings")
     last_id = len(bookings_sheet.col_values(1))
 
-    def __init__(self, trip_type, t_duration, location, hotel, airline, p_price, free_extras):
+    def __init__(self, trip_type, t_duration, location, hotel, airline,
+                 p_price, free_extras):
         self.id = self.last_id
         self.trip_type = trip_type
         self.t_duration = t_duration
@@ -421,7 +424,7 @@ class Booking:
         self.airline = airline
         self.p_price = p_price
         self.free_extras = free_extras
-    
+
     def update_worksheet(self):
         """
         Adds the new booking to bookings tab
@@ -429,20 +432,27 @@ class Booking:
         bookings_sheet = SHEET.worksheet("bookings")
 
         def __str__(self):
-            return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.trip_type, self.t_duration, 
-                                       self.location, self.hotel, self.airline, self.p_price,
-                                       self.free_extras)
-        
+            return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.trip_type,
+                                                       self.t_duration,
+                                                       self.location,
+                                                       self.hotel,
+                                                       self.airline,
+                                                       self.p_price,
+                                                       self.free_extras)
+
         bookings_sheet.append_row(__str__(self).split(","))
-        
+
     def confirm_booking(self):
         """
-        Returns booking id to user and informs to contact if they want to purchase
+        Returns booking id to user and informs to contact if they want to
+        purchase
         """
-        print("\n\n" + "\033[1m" + "YOUR UNIQUE BOOKING REFERENCE IS " + "\033[1m")
+        print("\n\n" + "\033[1m" + "YOUR UNIQUE BOOKING REFERENCE IS "
+              + "\033[1m")
         booking_ref = pyfiglet.figlet_format(str(self.id), font="bubble")
         print(Fore.GREEN + f"{booking_ref}")
-        print(Fore.MAGENTA + "Give us a call, if you'd like to purchase your booking")
+        print(Fore.MAGENTA + "Give us a call, if you'd like to purchase your "
+              "booking")
 
 
 def main():
@@ -456,9 +466,10 @@ def main():
     type_duration = get_holiday_types()
     selected_package = get_package()
     free_extras = add_free_extras()
-    booking = Booking(type_duration[0], type_duration[1], 
-                      selected_package[1], selected_package[2], selected_package[3],
-                    selected_package[4], free_extras)
+    booking = Booking(type_duration[0], type_duration[1],
+                      selected_package[1], selected_package[2],
+                      selected_package[3],
+                      selected_package[4], free_extras)
     booking.update_worksheet()
     booking.confirm_booking()
 
