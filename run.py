@@ -6,7 +6,7 @@ import random
 import os
 
 # import datetime module to work with holiday date
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 
 # google drive api and google sheets imports and constants
 import gspread
@@ -263,7 +263,7 @@ def get_package():
 
     # get indexes of targeted columns instead of entering a set number
     col_names = hotels[0]
-    price_index = int(col_names.index("Price/day/person eur")) + 1
+    price_index = int(col_names.index("Hotel\nDay\nRate")) + 1
     code_index = int(col_names.index("Hol Code")) + 1
     hotel_name_index = int(col_names.index("Hotel")) + 1
     location_index = int(col_names.index("Location")) + 1
@@ -290,9 +290,9 @@ def get_package():
     int_price_list = [eval(price) for price in price_list]
 
     # headers for basic package table
-    package_headers = ["Airline", "Flight Price", hotel_list_header,
+    package_headers = ["Airline", "Flight\nPrice", hotel_list_header,
                        location_list_header, price_list_header,
-                       "Total Package Price"]
+                       "Total\nPackage\nPrice"]
 
     # get flights depending on holiday type
     if selected_type == 1:
