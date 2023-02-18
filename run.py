@@ -8,6 +8,9 @@ import os
 # import datetime module to work with holiday date
 from datetime import datetime, timedelta
 
+# import literal_eval to turn string lists to int lists
+from ast import literal_eval
+
 # google drive api and google sheets imports and constants
 import gspread
 from google.oauth2.service_account import Credentials
@@ -264,7 +267,6 @@ def get_package():
     compares offered packages to user entered budget, displays packages within
     user budget range in a table
     """
-
     flight_offer = SHEET.worksheet("flight_offer")
     flights = flight_offer.get_all_values()
 
@@ -296,8 +298,8 @@ def get_package():
                       value == "winter"]
 
     # create int lists for params needed in calculation
-    int_code_list = [eval(code) for code in code_list]
-    int_price_list = [eval(price) for price in price_list]
+    int_code_list = [literal_eval(code) for code in code_list]
+    int_price_list = [literal_eval(price) for price in price_list]
 
     # headers for basic package table
     package_headers = ["Airline", "Flight\nPrice", hotel_list_header,
@@ -369,9 +371,10 @@ def get_package():
     # exits program if no packages available in the budget range
     if table == []:
         print(Fore.RED + f"There are no available packages of this type "
-              f"({selected_type}) with duration of {duration} days witin the "
-              f"entered budget range of {budget_entry}. Try again with "
-              "different entry parameters")
+              f"({selected_type}) \n"
+              f"with duration of {duration} days within the "
+              f"entered budget range of {budget_entry}. \n"
+              "Try again with different entry parameters")
         exit()
 
     print("Here are the packages available for your entered budget")
