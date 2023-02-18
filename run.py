@@ -82,29 +82,6 @@ def validate_date(entry):
         return False
     return True
 
-
-def validate_people(entry):
-    """
-    Checks if user entered people count meets program requirements
-    and returns error if not
-    """
-    try:
-        if entry < 1:
-            raise ValueError(
-                "The minimum number of people is 1.\n"
-                f"It's not possible to create a package for this entry {entry}"
-            )
-        if entry > 11:
-            raise ValueError(
-                "The maximum number of people is 11.\n"
-                f"It's not possible to create a package for {entry} people."
-            )
-    except ValueError as error:
-        print(Fore.RED + f"Invalid data: {error}, please try again.\n")
-        return False
-    return True
-
-
 def validate_budget(entry):
     """
     Checks if user entered budget figure meets program requirements
@@ -166,22 +143,31 @@ def date_input():
 def budget_input():
     """
     Takes user target budget, stores it in a variable
-    to be used during offer selection
+    to be used during offer selection, validates if entry meets
+    program requirements (at least 230)
     """
     while True:
-        global budget_entry
-        budget_entry = int(input("Enter your target budget in number format: "
+        try:
+            global budget_entry
+            budget_entry = int(input("Enter your target budget in number format: "
                            + "\n" + "EUR "))
-
-        if validate_budget(budget_entry):
+            if budget_entry < 230:
+                raise ValueError(
+                    "The minimum budget needed is 230.\n"
+                    "It's not possible to create a package for this budget"
+                    f"{budget_entry}")
             break
+        except ValueError as error:
+            print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+            continue
 
     return budget_entry
 
 
 def people_count():
     """
-    Takes user information on the amount of people going
+    Takes user information on the amount of people going, checks
+    if the entry meets amount and format restrictions (num between 1 - 11)
     """
     global people_entry
     while True:
