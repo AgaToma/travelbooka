@@ -476,7 +476,7 @@ class Booking:
         booking_ref = pyfiglet.figlet_format(str(self.id), font="bubble")
         print(Fore.GREEN + f"{booking_ref}")
         print(Fore.MAGENTA + "Give us a call, if you'd like to purchase your "
-              "booking")
+              "booking \n\n")
 
 
 def main():

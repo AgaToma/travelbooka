@@ -40,6 +40,9 @@ Mention class
 fonts & colors
 
 <h1>Features</h1>
+<h3></h3>
+
+<h3>Error messages</h3>
 
 <h1>Technologies</h1>
 Program was written in Python and is using customer Code Institute template with precoded html & js to run on Heroku.<br>
