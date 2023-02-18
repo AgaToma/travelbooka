@@ -370,16 +370,28 @@ def get_package():
     if table == []:
         print(Fore.RED + f"There are no available packages of this type "
               f"({selected_type}) with duration of {duration} days witin the "
-              f"entered budget range of {budget_entry}")
+              f"entered budget range of {budget_entry}. Try again with "
+              "different entry parameters")
         exit()
 
     print("Here are the packages available for your entered budget")
 
     print(tabulate(table, headers=package_headers, tablefmt="fancy_grid",
-          showindex="always") + "\n")
+          showindex=True) + "\n")
 
-    selected_package = int(input("Choose your package by entering the number "
-                           "in the first column: ") + "\n")
+    while True:
+        try:
+            selected_package = int(input("Choose your package by entering the number "
+                                   "from the first column: ") + "\n")
+            # get indices from created table of package options for input validation
+            table_indices = []
+            for option in range(len(table)):
+                table_indices.append(option)
+            if validate_selection(selected_package, table_indices):
+                break
+        except ValueError as error:
+            print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+            continue
 
     # clear terminal to avoid clutter
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
