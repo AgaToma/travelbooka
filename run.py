@@ -60,10 +60,11 @@ def validate_date(entry):
     Checks if user entered date meets program requirements
     and returns error if not
     """
-    date_condition1 = datetime.today().date() + timedelta(days=3)
-    date_condition2 = datetime.today().date() + timedelta(days=365)
-    entry_parsed = datetime.strptime(entry, '%Y-%m-%d').date()
+    
     try:
+        date_condition1 = datetime.today().date() + timedelta(days=3)
+        date_condition2 = datetime.today().date() + timedelta(days=365)
+        entry_parsed = datetime.strptime(entry, '%Y-%m-%d').date()
         if entry_parsed < date_condition1:
             raise ValueError(
                 "Enter a date that is at least 3 days from now.\n"
