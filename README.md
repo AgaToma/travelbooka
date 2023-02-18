@@ -34,8 +34,52 @@ mix and match flight and hotel offers to create their own unique bookings.
 <li>Reference number for the ready package that the user can use to buy the trip</li>
 
 <h1>Design</h1>
+<h2>Flowcharts</h2>
+Mention class
+<h2>Visuals</h2>
+fonts & colors
+
 <h1>Features</h1>
+
 <h1>Technologies</h1>
+Program was written in Python and is using customer Code Institute template with precoded html & js to run on Heroku.<br>
+<h2>Used libraries</h2>
+<h3>Built in libraries</h3>
+<ul>
+<li>os</li>
+Used to clear the terminal
+<li>random</li>
+Used to generate random choice for free extras
+<li>ast</li>
+Literal_eval used to convert string lists to integer lists
+<li>datetime
+<ul>
+<li>datetime module</li>
+Used to convert input string to date format
+<li>timedelta module</li>
+Used to add date input restriction from 3 days ahead to within 1 year  
+</ul>
+</li>
+</ul>
+<h3>Installed libraries</h3>
+<ul>
+<li>google drive api and google sheets</li>
+gspread, google.oauth2.service_account and Credentials<br>
+Used to link the program to Travelbooka google sheet
+<li>pyfiglet</li>
+To create Travelbooka logo and booking reference number in ASCII
+<li>colorama</li>
+To use colors in the terminal for prompts, errors, return information
+<li>tabulate</li>
+To display data to user in neat tables in the terminal
+</ul>
+<h2>Other</h2>
+<li>Google sheets on Google Drive</li>
+To create and store Travelbooka sheet with program data
+<li>Lucid charts</li>
+To create flow charts
+
+
 <h1>Testing</h1>
 <h1>Deployment</h1>
 ## Creating the Heroku app
