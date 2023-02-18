@@ -183,15 +183,27 @@ def people_count():
     """
     Takes user information on the amount of people going
     """
+    global people_entry
     while True:
-        global people_entry
-        people_entry = int(input("Enter number of people on the booking: "
-                           + "\n"))
-
-        if validate_people(people_entry):
+        try:
+            people_entry = int(input("Enter number of people on the booking: "
+                               + "\n"))
+            if people_entry < 1:
+                raise ValueError(
+                    "The minimum number of people is 1.\n"
+                    f"It's not possible to create a package for this entry {people_entry}")
+            if people_entry > 11:
+                raise ValueError(
+                    "The maximum number of people is 11.\n"
+                    f"It's not possible to create a package for {people_entry} people.")
             break
+        except ValueError as error:
+            print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+            continue
+        
 
     return people_entry
+
 
 
 def get_holiday_types():
