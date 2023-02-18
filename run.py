@@ -191,7 +191,6 @@ def people_count():
     return people_entry
 
 
-
 def get_holiday_types():
     """
     Displays holiday types from google sheet, takes month_entry as an argument,
@@ -211,26 +210,38 @@ def get_holiday_types():
     global duration
 
     while True:
-        selected_type = int(input("Choose holiday type by entering code from "
+        try:
+            selected_type = int(input("Choose holiday type by entering code from "
                                   "table: " + "\n"))
-        if validate_selection(selected_type, [1, 2, 3]):
-            break
+            if validate_selection(selected_type, [1, 2, 3]):
+                break
+        except ValueError as error:
+            print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+            continue
 
     if selected_type == 2:
         while True:
-            duration = int(input("Choose duration according to the table: "
+            try:
+                duration = int(input("Choose duration according to the table: "
                                  + "\n"))
-            if validate_selection(duration, [3, 5, 7]):
-                break
+                if validate_selection(duration, [3, 5, 7]):
+                    break
+            except ValueError as error:
+                print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+                continue
         print(Fore.GREEN + f"You selected {data[selected_type][1]} with "
               f"duration of {duration} days.\n")
         return [data[selected_type][1], duration]
     elif selected_type == 3:
         while True:
-            duration = int(input("Choose duration according to the table: "
+            try:
+                duration = int(input("Choose duration according to the table: "
                                  + "\n"))
-            if validate_selection(duration, [3, 5, 7]):
-                break
+                if validate_selection(duration, [3, 5, 7]):
+                    break
+            except ValueError as error:
+                print(Fore.RED + f"Invalid data: {error}, please try again.\n")
+                continue
         if season == "summer":
             print(Fore.GREEN + f"You selected Summer {data[selected_type][1]} "
                   f"with duration of {duration} days.\n")
