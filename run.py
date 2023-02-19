@@ -126,7 +126,7 @@ def date_input():
     are selected
     """
     while True:
-        date_entry = input(" Enter a date in YYYY-MM-DD format: " + "\n")
+        date_entry = input("Enter a date in YYYY-MM-DD format: " + "\n")
 
         if validate_date(date_entry):
             break
@@ -152,7 +152,7 @@ def budget_input():
     while True:
         try:
             global budget_entry
-            budget_entry = int(input(" Enter your target budget in number "
+            budget_entry = int(input("Enter your target budget in number "
                                      "format: " + "\n" + "EUR "))
             if budget_entry < 230:
                 raise ValueError(
@@ -175,7 +175,7 @@ def people_count():
     global people_entry
     while True:
         try:
-            people_entry = int(input(" Enter number of people on the booking: "
+            people_entry = int(input("Enter number of people on the booking: "
                                + "\n"))
             if people_entry < 1:
                 raise ValueError(
@@ -215,7 +215,7 @@ def get_holiday_types():
 
     while True:
         try:
-            selected_type = int(input(" Choose holiday type by entering code "
+            selected_type = int(input("Choose holiday type by entering code "
                                       "from table: " + "\n"))
             if validate_selection(selected_type, [1, 2, 3]):
                 break
@@ -226,7 +226,7 @@ def get_holiday_types():
     if selected_type == 2:
         while True:
             try:
-                duration = int(input(" Choose duration according to the table: "
+                duration = int(input("Choose duration according to the table: "
                                      + "\n"))
                 if validate_selection(duration, [3, 5, 7]):
                     break
@@ -239,7 +239,7 @@ def get_holiday_types():
     elif selected_type == 3:
         while True:
             try:
-                duration = int(input(" Choose duration according to the table: "
+                duration = int(input("Choose duration according to the table: "
                                      + "\n"))
                 if validate_selection(duration, [3, 5, 7]):
                     break
@@ -385,7 +385,7 @@ def get_package():
 
     while True:
         try:
-            selected_package = int(input(" Choose your package by entering the "
+            selected_package = int(input("Choose your package by entering the "
                                    " number from the first column: ") + "\n")
             # get indices from created table of package options for input
             # validation
