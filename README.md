@@ -6,6 +6,7 @@ parameters stored in Google sheets. In real world this could be used by a travel
 mix and match flight and hotel offers to create their own unique bookings. <br>
 
 [View live website here](https://travelbooka.herokuapp.com/)
+[View Google sheet with data here](https://docs.google.com/spreadsheets/d/1dK4-eRQH35rCdli_3GxEjlyvN_XVsrNil5q2Ew-VxaM/edit?usp=sharing)
 
 <h1>User experience</h1>
 <h2>Goals</h2>
@@ -38,11 +39,26 @@ mix and match flight and hotel offers to create their own unique bookings. <br>
 
 <h1>Design</h1>
 <h2>Program flow</h2>
+<h3>General chart</h3>
 The general program flow is picrured on the below chart.
 
 ![Flowchart](assets/images/travelbooka_chart.JPG)
 
-To avoid cluttering the main chart, error handling logic is show on a separate chart below.
+<h3>Error handling chart</h3>
+To avoid cluttering the main chart, error handling logic is shown on a separate chart below.
+The following input criteria are applied for non empty input:
+<ol>
+<li>Date</li>
+Needs to be in YYYY-MM-DD format, has to be 3 days from now and withing 1 year from now
+<li>Number of people</li>
+Needs to be an integer between 1 - 10
+<li>Budget</li>
+From 230 up
+<li>Holiday type</li>
+Needs to be 1 or 2 or 3 (as available in table)
+<li>Package selection</li>
+Needs to be and integer selected from available range displayed in table
+</ol>
 
 ![Error chart](assets/images/error_handling_chart.JPG)
 
@@ -54,11 +70,105 @@ Used to make the logo stand out
 <li>pyfiglet bubble font</li>
 Used to make booking reference number stand out
 </ul>
+<h3>Colors</h3>
+Colorama colors were applied to make some text stand out in the terminal
+<ul>
+<li>Logo caption - red, magenta, cyan, yellow</li>
+<li>Error messages - red</li>
+<li>Correct user input confirmation - green</li>
+<li>Free extras message - green, yellow, cyan</li>
+<li>Final message - green, yellow</li>
+</ul> 
 
 <h1>Features</h1>
-<h3></h3>
+<h3>Logo and welcome message</h3>
+
+User is shown program logo with caption and instructions how to use the program.
+![Welcome](assets/images/welcomemsg.JPG)
+
+<h3>Date input</h3>
+
+User is asked to enter the date they want to travel. Their input is stored through the booking process
+and is currently used to differentiate between winter and summer holidays, if the selected type is Active holidays.
+![Date input](assets/images/dateprompt.JPG)
+
+<h3>People count input</h3>
+
+User is asked to enter number of people the package is built for. The value is used in the package calculation to
+multiply flight & hotel daily rate by number of people.
+![People input](assets/images/people_input.JPG)
+
+<h3>Budget input</h3>
+
+User is asked to enter their target budget for the trip. The value is used to select packages with total price within
+the budget. If no package is available during the package calculation step, user is asked to try again with different parameters.
+![Budget input](assets/images/budget_input.JPG)
+
+Here is an example of completed intro inputs.
+![Intro inputs](assets/images/intro_inputs.JPG)
+
+<h3>Holiday type table</h3>
+
+When intro inputs are completed successfully user is shown holiday type table with 3 different types: short city break with predetermined
+duration of 3 days, beach holidays, active holidays. User needs to choose from numbers 1, 2, 3 as displayed in the table next to relevant
+holiday type. Table data are pulled from Google sheet.
+![Holiday type](assets/images/holiday_type_table.JPG)
+
+<h3>Duration</h3>
+
+Duration is predetermined for package 1 (City Break). If user chooses Beach holidays or Active holidays, they're asked to choose duration
+from 3, 5 or 7 days. 
+![Duration](assets/images/duration.JPG)
+
+<h3>Package selection</h3>
+
+Next, user is shown a confirmation of which type and duration they chose. If Active holidays type was selected, program also chooses between Summer
+and Winter Active holidays based on the month from the user entered date.
+Next, a table with packages withing user entered budget range is displayed with a request to choose one. Table is built from data stored in Google sheet,
+based on parameters entered by user.<br>
+If there's no package available within that range, error message is displayed (see Error messages below).
+![Package selection](assets/images/package_selection.JPG)
+
+<h3>Selected package information</h3>
+
+Next, selected package number is displayed along with the single table row with chosen package contents.
+![Selected package](assets/images/selected_package_info.JPG)
+
+<h3>Random extras</h3>
+
+Random free extra is added to show appreciation for using the program and to be used if package is purchased.
+![Selected package](assets/images/random_extra.JPG)
+
+<h3>Booking reference and final message</h3>
+
+Unique booking reference number is generated and displayed to user with a request to call to purchase.
+Behind the scenes, selected package along with allocated random extra is added to Google sheet with the respective
+booking reference, so the travel company can then locate the created package, when user calls to book. Class of Booking
+is used to create each booking. 
+![Booking ref](assets/images/booking_reference.JPG)
 
 <h3>Error messages</h3>
+Error messages are displayed in red in the below scenarios:
+<ul>
+<li>Enter pressed without input</li>
+
+![Empty error](assets/images/emptydate_error.JPG)
+
+<li>Input does not meet requested parameters (see Error handling chart section for parameter description)</li>
+
+![Daterange error](assets/images/daterange_error.JPG)
+
+<li>No available package in the budget</li>
+
+![Budgetrange error](assets/images/budgetrange_error.JPG)
+</ul>
+
+<h3>Future features</h3>
+<ul>
+<li>Adding flight upgrade option</li>
+<li>Adding hotel upgrade option</li>
+<li>Adding paid extras selection option</li>
+</ul>
 
 <h1>Technologies</h1>
 Program was written in Python and is using customer Code Institute template with precoded html & js to run on Heroku.<br>
