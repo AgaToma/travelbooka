@@ -84,6 +84,7 @@ def validate_date(entry):
         return False
     return True
 
+
 def validate_budget(entry):
     """
     Checks if user entered budget figure meets program requirements
@@ -151,8 +152,8 @@ def budget_input():
     while True:
         try:
             global budget_entry
-            budget_entry = int(input("Enter your target budget in number format: "
-                           + "\n" + "EUR "))
+            budget_entry = int(input("Enter your target budget in number "
+                                     "format: " + "\n" + "EUR "))
             if budget_entry < 230:
                 raise ValueError(
                     "The minimum budget needed is 230.\n"
@@ -179,16 +180,17 @@ def people_count():
             if people_entry < 1:
                 raise ValueError(
                     "The minimum number of people is 1.\n"
-                    f"It's not possible to create a package for this entry {people_entry}")
+                    "It's not possible to create a package for this entry "
+                    f"{people_entry}")
             if people_entry > 11:
                 raise ValueError(
                     "The maximum number of people is 11.\n"
-                    f"It's not possible to create a package for {people_entry} people.")
+                    f"It's not possible to create a package for {people_entry}"
+                    " people.")
             break
         except ValueError as error:
             print(Fore.RED + f"Invalid data: {error}, please try again.\n")
             continue
-        
 
     return people_entry
 
@@ -213,8 +215,8 @@ def get_holiday_types():
 
     while True:
         try:
-            selected_type = int(input("Choose holiday type by entering code from "
-                                  "table: " + "\n"))
+            selected_type = int(input("Choose holiday type by entering code "
+                                      "from table: " + "\n"))
             if validate_selection(selected_type, [1, 2, 3]):
                 break
         except ValueError as error:
@@ -225,7 +227,7 @@ def get_holiday_types():
         while True:
             try:
                 duration = int(input("Choose duration according to the table: "
-                                 + "\n"))
+                                     + "\n"))
                 if validate_selection(duration, [3, 5, 7]):
                     break
             except ValueError as error:
@@ -238,7 +240,7 @@ def get_holiday_types():
         while True:
             try:
                 duration = int(input("Choose duration according to the table: "
-                                 + "\n"))
+                                     + "\n"))
                 if validate_selection(duration, [3, 5, 7]):
                     break
             except ValueError as error:
@@ -383,9 +385,10 @@ def get_package():
 
     while True:
         try:
-            selected_package = int(input("Choose your package by entering the number "
-                                   "from the first column: ") + "\n")
-            # get indices from created table of package options for input validation
+            selected_package = int(input("Choose your package by entering the "
+                                   " number from the first column: ") + "\n")
+            # get indices from created table of package options for input
+            # validation
             table_indices = []
             for option in range(len(table)):
                 table_indices.append(option)
