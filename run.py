@@ -427,7 +427,7 @@ def add_free_extras():
 
     print(Fore.GREEN + "As a way of saying thanks for booking with us")
     print(Fore.YELLOW + "we added the below free extra to your package")
-    print(Fore.MAGENTA + f"{random_extra}")
+    print(Fore.CYAN + f"{random_extra}")
 
     return random_extra
 
@@ -478,7 +478,7 @@ class Booking:
               + "\033[1m")
         booking_ref = pyfiglet.figlet_format(str(self.id), font="bubble")
         print(Fore.GREEN + f"{booking_ref}")
-        print(Fore.MAGENTA + "Give us a call, if you'd like to purchase your "
+        print(Fore.CYAN + "Give us a call, if you'd like to purchase your "
               "booking \n\n")
 
 
