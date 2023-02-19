@@ -3,7 +3,10 @@
 <h1>Overview</h1>
 Travelbooka is an program using "do it yourself" philosophy to create user's own travel package based on
 parameters stored in Google sheets. In real world this could be used by a travel agency to allow user to 
-mix and match flight and hotel offers to create their own unique bookings. 
+mix and match flight and hotel offers to create their own unique bookings. <br>
+
+[View live website here](https://travelbooka.herokuapp.com/)
+
 <h1>User experience</h1>
 <h2>Goals</h2>
 <ul>
