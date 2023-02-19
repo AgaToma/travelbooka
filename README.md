@@ -37,10 +37,23 @@ mix and match flight and hotel offers to create their own unique bookings. <br>
 <li>Reference number for the ready package that the user can use to buy the trip</li>
 
 <h1>Design</h1>
-<h2>Flowcharts</h2>
-Mention class
+<h2>Program flow</h2>
+The general program flow is picrured on the below chart.
+
+![Flowchart](assets/images/travelbooka_chart.JPG)
+
+To avoid cluttering the main chart, error handling logic is show on a separate chart below.
+
+![Error chart](assets/images/error_handling_chart.JPG)
+
 <h2>Visuals</h2>
-fonts & colors
+<h3>ASCII</h3>
+<ul>
+<li>pyfiglet standard font</li>
+Used to make the logo stand out
+<li>pyfiglet bubble font</li>
+Used to make booking reference number stand out
+</ul>
 
 <h1>Features</h1>
 <h3></h3>
