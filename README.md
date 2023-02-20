@@ -79,29 +79,31 @@ Colorama colors were applied to make some text stand out in the terminal
 <li>Free extras message - green, yellow, cyan</li>
 <li>Final message - green, yellow</li>
 </ul> 
+<h3>Table format display</h3>
+Table format is used to present data to user - fancy grid from tabulate
 
 <h1>Features</h1>
 <h3>Logo and welcome message</h3>
 
-User is shown program logo with caption and instructions how to use the program.
+User is shown program logo with caption and instructions how to use the program.<br>
 ![Welcome](assets/images/welcomemsg.JPG)
 
 <h3>Date input</h3>
 
 User is asked to enter the date they want to travel. Their input is stored through the booking process
-and is currently used to differentiate between winter and summer holidays, if the selected type is Active holidays.
+and is currently used to differentiate between winter and summer holidays, if the selected type is Active holidays.<br>
 ![Date input](assets/images/dateprompt.JPG)
 
 <h3>People count input</h3>
 
 User is asked to enter number of people the package is built for. The value is used in the package calculation to
-multiply flight & hotel daily rate by number of people.
+multiply flight & hotel daily rate by number of people.<br>
 ![People input](assets/images/people_input.JPG)
 
 <h3>Budget input</h3>
 
 User is asked to enter their target budget for the trip. The value is used to select packages with total price within
-the budget. If no package is available during the package calculation step, user is asked to try again with different parameters.
+the budget. If no package is available during the package calculation step, user is asked to try again with different parameters.<br>
 ![Budget input](assets/images/budget_input.JPG)
 
 Here is an example of completed intro inputs.
@@ -111,13 +113,13 @@ Here is an example of completed intro inputs.
 
 When intro inputs are completed successfully user is shown holiday type table with 3 different types: short city break with predetermined
 duration of 3 days, beach holidays, active holidays. User needs to choose from numbers 1, 2, 3 as displayed in the table next to relevant
-holiday type. Table data are pulled from Google sheet.
+holiday type. Table data are pulled from Google sheet.<br>
 ![Holiday type](assets/images/holiday_type_table.JPG)
 
 <h3>Duration</h3>
 
 Duration is predetermined for package 1 (City Break). If user chooses Beach holidays or Active holidays, they're asked to choose duration
-from 3, 5 or 7 days. 
+from 3, 5 or 7 days. <br>
 ![Duration](assets/images/duration.JPG)
 
 <h3>Package selection</h3>
@@ -131,12 +133,12 @@ If there's no package available within that range, error message is displayed (s
 
 <h3>Selected package information</h3>
 
-Next, selected package number is displayed along with the single table row with chosen package contents.
+Next, selected package number is displayed along with the single table row with chosen package contents.<br>
 ![Selected package](assets/images/selected_package_info.JPG)
 
 <h3>Random extras</h3>
 
-Random free extra is added to show appreciation for using the program and to be used if package is purchased.
+Random free extra is added to show appreciation for using the program and to be used if package is purchased.<br>
 ![Selected package](assets/images/random_extra.JPG)
 
 <h3>Booking reference and final message</h3>
@@ -144,7 +146,7 @@ Random free extra is added to show appreciation for using the program and to be 
 Unique booking reference number is generated and displayed to user with a request to call to purchase.
 Behind the scenes, selected package along with allocated random extra is added to Google sheet with the respective
 booking reference, so the travel company can then locate the created package, when user calls to book. Class of Booking
-is used to create each booking. 
+is used to create each booking. <br>
 ![Booking ref](assets/images/booking_reference.JPG)
 
 <h3>Error messages</h3>
@@ -210,6 +212,8 @@ To create flow charts
 
 
 <h1>Testing</h1>
+
+
 <h1>Deployment</h1>
 ## Creating the Heroku app
 
