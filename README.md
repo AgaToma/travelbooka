@@ -212,7 +212,16 @@ To create flow charts
 
 
 <h1>Testing</h1>
+<h2>Functional testing</h2>
+Functional testing of completed project is documented below.
 
+![Test sheet 1](assets/images/testing1.JPG)
+![Test sheet 2](assets/images/testing2.JPG)
+[Test sheet can be viewed here](https://docs.google.com/spreadsheets/d/167-864up_5QZCAV0YeJn6JvQkENTWiXnJxntSCRleYs/edit?usp=sharing)
+
+<h2>Validator testing</h2>
+
+<h2>Bugs during creation</h2>
 
 <h1>Deployment</h1>
 ## Creating the Heroku app
