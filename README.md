@@ -194,7 +194,7 @@ Used to add date input restriction from 3 days ahead to within 1 year
 </ul>
 <h3>Installed libraries</h3>
 <ul>
-<li>google drive api and google sheets</li>
+<li>google drive and google sheets api</li>
 gspread, google.oauth2.service_account and Credentials<br>
 Used to link the program to Travelbooka google sheet
 <li>pyfiglet</li>
@@ -253,19 +253,52 @@ stand out more.
 </ol>
 
 <h1>Deployment</h1>
-## Creating the Heroku app
+<h2>Version Control</h2>
+Site was created and developed with GitHub using Gitpod in Chrome. The following commands were used for version control.
+<ul>
+    <li>git add . - add changes to staging area before committing</li> 
+    <li>git commit -m "commit message" - committing staged changes to the local repository</li>
+    <li>git push - pushing commited changes to the GitHub remote repository</li>
+</ul>
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+<h2>Deployment on Heroku</h2>
+Below steps were followed to deploy the project:
+<ol>
+<li>Create Heroku account and login</li>
+<li>Click "New -> Create new app" button</li>
+<li>Insert app name, choose your region, click the "Create App" button</li>
+<li>On Settings tab go to "Config vars" section, click "Reveal Config Vars"</li>
+<li>Enter "PORT" in the KEY section and "8000" for value, click "Add"</li>
+<li>Enter "CREDS" in the KEY section and "JSON" for value, click "Add"</li>
+<li>Go to "Buildpacks" section and click "Add buildpack"</li>
+<li>Add Python buildpack first, then NodeJs</li>
+<li>On Deploy tab go to "Deployment method" and select Github</li>
+<li>Go to "App connected to GitHub", type your GitHub repository name to link it</li>
+<li>Manual deployment was chosen on the main branch</li>
+</ol>
 
-1. `heroku/python`
-2. `heroku/nodejs`
+Live website can be found [here](https://travelbooka.herokuapp.com/)<br>
+GitHub repository can be found [here](https://github.com/AgaToma/travelbooka)
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+<h2>Forking & Cloning</h2>
+<h3>How to fork</h3>
+Click Fork button on the top right -> select owner -> optionally change name or add description -> create Fork.
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
+<h3>How to clone</h3>
+Click on the code button -> select clone with HTTPS, SSH or GitHub CLI -> copy the link shown -> open terminal in your code editor and change the current working directory to the location you want to use for the cloned directory -> type 'git clone' into the terminal and then paste the copied link -> press enter.
 
 <h1>Credits</h1>
+<h2>References</h2>
+https://pypi.org/project/pyfiglet/0.7/
+https://pypi.org/project/colorama/
+https://pypi.org/project/tabulate/
+https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+2021_T1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/
+https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
+https://stackoverflow.com/questions/15226898/python-3-2-input-date-function
+https://stackoverflow.com/questions/63538120/error-while-using-tabulate-typeerror-int-object-is-not-iterable
+https://stackabuse.com/python-how-to-flatten-list-of-lists/
+https://www.geeksforgeeks.org/python-ways-to-remove-duplicates-from-list/
 
+<h2>Acknowledgements</h2>
+My Code Institute mentor [Daisy McGirr](https://github.com/Daisy-McG) - for her guidance, support and useful insights.
 
