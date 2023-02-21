@@ -478,8 +478,8 @@ class Booking:
               + "\033[1m")
         booking_ref = pyfiglet.figlet_format(str(self.id), font="bubble")
         print(Fore.GREEN + "\033[1m" + f"{booking_ref}" + "\033[1m")
-        print(Fore.YELLOW + "\033[1m" + "Give us a call, if you'd like to "
-              "purchase your booking \n\n" + "\033[1m")
+        print(Fore.YELLOW + "Give us a call, if you'd like to "
+              "purchase your booking \n\n")
 
 
 def main():

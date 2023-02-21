@@ -209,6 +209,12 @@ To display data to user in neat tables in the terminal
 To create and store Travelbooka sheet with program data
 <li>Lucid charts</li>
 To create flow charts
+<li>Gitpod - template by Code Institute</li>
+Code was written in run.py file in Gitpod and some testing done in
+Gitpod terminal. The template with remaining files needed for the program
+to run on Heroku was precoded by Code Institute.
+<li>Heroku</li>
+See deployment for more details
 
 
 <h1>Testing</h1>
@@ -221,7 +227,30 @@ Functional testing of completed project is documented below.
 
 <h2>Validator testing</h2>
 
+Project had been regularly checked with [CI Python Linter](http://pep8ci.herokuapp.com/), which showed some lines were too long. This had been corrected
+and finalized project shows no linter errors. 
+
+![Linter](assets/images/linter.JPG)
+
 <h2>Bugs during creation</h2>
+
+<ol>
+<li>Validation issues</li>
+The original code created for input validation with try/except would stop program from running and return error message with instructions
+how to repeat step, but if empty input or string input were submitted the ValueError caused the program to exit/crash.
+This was fixed by moving input request inside try statement and combining other try parameters.
+<li>Eval</li>
+Initially eval method was used to convert string list to integer list. While this didn't come up as error in CI linter and was only highlighted as
+warning and not error in Gitpod, upon further reading it turned out eval poses valid safety concern. Eval was then replaced with literal_eval
+from ast module. Testing showed that program functions as designed after this change.
+<li>Terminal width after deployment</li>
+Upon testing after deployment, it turned out that terminal is too narrow and package table design is distorted because of this. To remedy this,
+table column width was decreased where possible and terminal width was changed from 80 to 100 in the index.html file. 
+<li>Colors after deployment</li>
+Colors in the deployed terminal are darker than displayed in Gitpod, which caused some bits to be less visible than intended. This was fixed by
+changing random extra color from magenta to cyan and call us message to yellow. Font was made bolder to make booking reference and call us message
+stand out more.
+</ol>
 
 <h1>Deployment</h1>
 ## Creating the Heroku app
