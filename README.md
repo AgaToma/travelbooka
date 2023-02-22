@@ -313,13 +313,20 @@ Click on the code button -> select clone with HTTPS, SSH or GitHub CLI -> copy t
 
 <h1>Credits</h1>
 <h2>References</h2>
+How to use Pyfiglet <br> 
 https://pypi.org/project/pyfiglet/0.7/<br>
-https://pypi.org/project/colorama/<br>
-https://pypi.org/project/tabulate/<br>
-https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+2021_T1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/<br>
 https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/<br>
-https://stackoverflow.com/questions/15226898/python-3-2-input-date-function<br>
+How to use Colorama <br>
+https://pypi.org/project/colorama/<br>
+How to use Tabulate <br>
+https://pypi.org/project/tabulate/<br>
 https://stackoverflow.com/questions/63538120/error-while-using-tabulate-typeerror-int-object-is-not-iterable<br>
+How to set up Google Drive & Sheets API <br>
+https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+2021_T1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/<br>
+How to use Datetime features <br>
+https://docs.python.org/3/library/datetime.html <br>
+https://stackoverflow.com/questions/15226898/python-3-2-input-date-function<br>
+Working with lists <br>
 https://stackabuse.com/python-how-to-flatten-list-of-lists/<br>
 https://www.geeksforgeeks.org/python-ways-to-remove-duplicates-from-list/<br>
 
